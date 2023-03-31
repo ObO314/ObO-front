@@ -15,6 +15,8 @@ import NotoSansKRMedium from '@assets/fonts/NotoSansKR-Medium.otf';
 import NotoSansKRBold from '@assets/fonts/NotoSansKR-Bold.otf';
 import NotoSansKRBlack from '@assets/fonts/NotoSansKR-Black.otf';
 
+import NovaRoundRegular from '@assets/fonts/NovaRound-Regular.ttf';
+
 export const GlobalStyle = createGlobalStyle`
     ${reset}
 
@@ -86,6 +88,12 @@ export const GlobalStyle = createGlobalStyle`
         src: local("NotoSansKR"), url(${NotoSansKRBlack}) format('otf'); 
         font-weight: 900;
     }
+
+    @font-face {
+        font-family: "NovaRound";
+        src: local("NovaRound"), url(${NovaRoundRegular}) format('ttf'); 
+        font-weight: 400;
+    }
     :root {
         font-family: "Heebo";
         background-color: #ffffff;
@@ -99,10 +107,13 @@ export const GlobalStyle = createGlobalStyle`
         --oboBlack : #1D2422;
         /* --vh: 100%; */
     }
+    *{
+         box-sizing: border-box;
+    }
     .App {
         max-width: 1200px;
         margin: 0 auto;
-        padding: 20px;
+        padding: 0 20px;
         font-size: 18px;
         /* overflow: hidden; */
         height: calc(var(--vh, 1vh) * 100);
