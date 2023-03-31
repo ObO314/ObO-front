@@ -3,16 +3,7 @@ module.exports = {
         browser: true,
         es2021: true,
     },
-    extends: [
-        'eslint:recommended',
-        '@typescript-eslint/parser',
-        'plugin:reac`t/recommended',
-        'prettier',
-        'react-app',
-        'plugin:react-hooks/recommended',
-        'plugin:@typescript-eslint/recommended',
-        'plugin:prettier/recommended',
-    ],
+    extends: ['eslint:recommended', 'plugin:react/recommended', 'prettier', 'react-app', 'plugin:react-hooks/recommended', 'plugin:@typescript-eslint/recommended', 'plugin:prettier/recommended'],
     overrides: [],
     parser: '@typescript-eslint/parser',
     parserOptions: {
