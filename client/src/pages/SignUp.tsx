@@ -4,58 +4,62 @@ import styled from 'styled-components';
 import RocketAnimation from '@components/RocketAnimation';
 import { Link } from 'react-router-dom';
 import GoogleLogo from '@assets/images/google-logo.png';
+import GithubLogo from '@assets/images/github-logo.png';
 
 export default function SignUp() {
     return (
         <>
             <TestHeader />
-            <StyledContainerBox>
-                <StyledAnimationBox>
+            <StyledContainer>
+                <StyledBox>
                     <RocketAnimation />
-                </StyledAnimationBox>
-                <StyledSignUpContainer>
+                </StyledBox>
+                <StyledBox>
                     <StyledSignUpBox>
-                        <StyledSignUpTopContainer>
-                            <StyledSignUpTopTileBox>Sign up</StyledSignUpTopTileBox>
-                            <StyledSignUpTopLoginContainer>
-                                <StyledSignUpTopLoginBox>
+                        <StyledSignUpContainer>
+                            <StyledSignUpTileBox>Sign up</StyledSignUpTileBox>
+                            <StyledSignUpLoginContainer>
+                                <StyledSignUpLoginBox>
                                     이미 계정이 있으신가요?
-                                    <StyledSignUpTopLoginLink>
-                                        <Link to="/login">로그인</Link>
-                                    </StyledSignUpTopLoginLink>
-                                </StyledSignUpTopLoginBox>
-                                <StyledSignUpTopLogoBox>
-                                    <StyledSignUpTopLogoImage src={GoogleLogo} />
-                                </StyledSignUpTopLogoBox>
-                            </StyledSignUpTopLoginContainer>
-                        </StyledSignUpTopContainer>
-                        <StyledSignUpBottomContainer />
+                                    <StyledSignUpLoginLink to="/login">로그인</StyledSignUpLoginLink>
+                                </StyledSignUpLoginBox>
+                                <StyledSignUpLogoBox>
+                                    <StyledSignUpLogoImage src={GoogleLogo} />
+                                    <StyledSignUpLogoImage src={GithubLogo} />
+                                </StyledSignUpLogoBox>
+                                <StyledSignUpHorizontalRuleBox>
+                                    <StyledSignUpHorizontalRule />
+                                    <StyledOrText>or</StyledOrText>
+                                    <StyledSignUpHorizontalRule />
+                                </StyledSignUpHorizontalRuleBox>
+                            </StyledSignUpLoginContainer>
+                        </StyledSignUpContainer>
+                        <StyledSignUpFormWrapper>
+                            <StyledInputContainer>
+                                <StyledNameInputField type="text" required placeholder="Name" />
+                                <StyledNameInputField type="text" required placeholder="NickName" />
+                            </StyledInputContainer>
+                            <StyledInputField type="email" required placeholder="Email" />
+                            <StyledInputField type="password" required placeholder="Password" />
+                            <StyledSignUpSubmitButton>Create Account</StyledSignUpSubmitButton>
+                        </StyledSignUpFormWrapper>
                     </StyledSignUpBox>
-                </StyledSignUpContainer>
-            </StyledContainerBox>
+                </StyledBox>
+            </StyledContainer>
         </>
     );
 }
 
-const StyledContainerBox = styled.div`
+const StyledContainer = styled.div`
     width: 100%;
     height: 100%;
     display: flex;
     margin-top: 3rem;
 `;
 
-const StyledAnimationBox = styled.div`
+const StyledBox = styled.div`
     width: 50%;
     height: 60%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid black;
-`;
-const StyledSignUpContainer = styled.div`
-    width: 50%;
-    height: 60%;
-    border: 1px solid black;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -64,56 +68,117 @@ const StyledSignUpContainer = styled.div`
 const StyledSignUpBox = styled.div`
     width: 90%;
     height: 90%;
-    border: 1px solid #c7c7c7;
+    border: 1px solid var(--gray-color);
     border-radius: 10px;
     background-color: #ffffff;
     padding: 1rem;
 `;
 
-const StyledSignUpTopContainer = styled.div`
+const StyledSignUpContainer = styled.div`
     width: 100%;
     height: 40%;
-    border: 1px solid black;
 `;
 
-const StyledSignUpTopTileBox = styled.div`
+const StyledSignUpTileBox = styled.div`
     width: 100%;
     height: 20%;
     font-size: 3rem;
     font-family: 'NovaRound';
+    margin-bottom: 1rem;
 `;
-const StyledSignUpTopLoginContainer = styled.div`
+const StyledSignUpLoginContainer = styled.div`
     width: 100%;
     height: 80%;
-    padding: 1rem 1rem;
     font-size: 1.25rem;
     font-family: 'NotoSansKR';
     font-weight: 600;
 `;
 
-const StyledSignUpTopLoginBox = styled.div`
+const StyledSignUpLoginBox = styled.div`
     width: 100%;
     height: 30%;
+    padding: 1rem 1rem;
 `;
 
-const StyledSignUpTopLoginLink = styled.a`
+const StyledSignUpLoginLink = styled(Link)`
     color: var(--oboGreen);
     margin-left: 2rem;
     cursor: pointer;
 `;
 
-const StyledSignUpTopLogoBox = styled.div`
-    width: 100%;
-    height: 70%;
+const StyledSignUpLogoBox = styled.div`
+    width: 40%;
+    height: auto;
+    display: flex;
+    justify-content: space-around;
 `;
-const StyledSignUpTopLogoImage = styled.img`
-    width: 3rem;
-    height: 3rem;
-    border: 1px solid #c7c7c7;
+const StyledSignUpLogoImage = styled.img`
+    width: 4rem;
+    height: 4rem;
+    border: 1px solid var(--gray-color);
     border-radius: 7px;
+    cursor: pointer;
 `;
-const StyledSignUpBottomContainer = styled.div`
+
+const StyledSignUpHorizontalRuleBox = styled.div`
+    width: 100%;
+    height: auto;
+    margin-top: 2rem;
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Heebo';
+    font-weight: 300;
+    color: var(--input-text-color);
+`;
+const StyledOrText = styled.div`
+    width: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`;
+const StyledSignUpHorizontalRule = styled.hr`
+    width: 45%;
+    height: 1px;
+    color: var(--gray-color);
+`;
+
+const StyledSignUpFormWrapper = styled.form`
     width: 100%;
     height: 60%;
-    border: 1px solid black;
+    margin-top: 1rem;
+`;
+const StyledInputContainer = styled.div`
+    width: 100%;
+    height: var(--input-height);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+`;
+
+const StyledInputField = styled.input`
+    width: 100%;
+    height: var(--input-height);
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid var(--gray-color);
+    border-radius: 10px;
+    color: var(--input-text-color);
+    background-color: var(--input-bg-color);
+`;
+const StyledNameInputField = styled(StyledInputField)`
+    width: 49%;
+    height: 100%;
+    margin-bottom: 0;
+`;
+const StyledSignUpSubmitButton = styled.button`
+    width: 100%;
+    height: var(--input-height);
+    margin-top: 1rem;
+    font-weight: 400;
+    font-size: 1.5rem;
+    color: #ffffff;
+    background-color: var(--oboCoral);
+    border: 1px solid var(--gray-color);
+    border-radius: 10px;
 `;

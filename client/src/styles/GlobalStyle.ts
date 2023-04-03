@@ -105,6 +105,10 @@ export const GlobalStyle = createGlobalStyle`
         --oboLightCoral : #FFB6AD;
         --oboDeepCoral : #E4796D;
         --oboBlack : #1D2422;
+        --gray-color: #c7c7c7;
+        --input-bg-color: #f5f5f5;
+        --input-text-color: #606060;
+        --input-height: 4.5rem;
         /* --vh: 100%; */
     }
     *{
