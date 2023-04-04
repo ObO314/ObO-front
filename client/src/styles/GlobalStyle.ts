@@ -109,6 +109,8 @@ export const GlobalStyle = createGlobalStyle`
         --input-bg-color: #f5f5f5;
         --input-text-color: #606060;
         --input-height: 4.5rem;
+        --input-error-red:#ec3257;
+        --input-focus-color: #00c1a2;
         /* --vh: 100%; */
     }
     *{
