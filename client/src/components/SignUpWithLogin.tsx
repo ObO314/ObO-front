@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import HoriZontalRule from '@components/HoriZontalRule';
-import GoogleLogo from '@assets/images/google-logo.png';
-import GithubLogo from '@assets/images/github-logo.png';
+import GoogleLoginButton from '@/components/GoogleLoginButton';
+import GithubLoginButton from '@components/GithubLoginButton';
 import { Link, useParams } from 'react-router-dom';
 
 export default function SignUpWithLogin() {
@@ -16,8 +16,8 @@ export default function SignUpWithLogin() {
                     <StyledSignUpLoginLink to={params === 'login' ? 'signup' : '/login'}>{params === 'login' ? '회원가입' : '로그인'}</StyledSignUpLoginLink>
                 </StyledSignUpLoginBox>
                 <StyledSignUpLogoBox>
-                    <StyledSignUpLogoImage src={GoogleLogo} />
-                    <StyledSignUpLogoImage src={GithubLogo} />
+                    <GoogleLoginButton />
+                    <GithubLoginButton />
                 </StyledSignUpLogoBox>
                 <HoriZontalRule />
             </StyledSignUpLoginContainer>
@@ -58,11 +58,4 @@ export const StyledSignUpLogoBox = styled.div`
     height: auto;
     display: flex;
     justify-content: space-around;
-`;
-export const StyledSignUpLogoImage = styled.img`
-    width: 4rem;
-    height: 4rem;
-    border: 1px solid var(--gray-color);
-    border-radius: 7px;
-    cursor: pointer;
 `;
