@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import HoriZontalRule from '@components/HoriZontalRule';
-import GoogleLoginButton from '@/components/GoogleLoginButton';
-import GithubLoginButton from '@components/GithubLoginButton';
+import HoriZontalRule from '@/components/SignUp/HoriZontalRule';
+import GoogleLoginButton from '@/components/SignUp/GoogleLoginButton';
+import GithubLoginButton from '@/components/SignUp/GithubLoginButton';
 import { Link, useParams } from 'react-router-dom';
 
 export default function SignUpWithLogin() {

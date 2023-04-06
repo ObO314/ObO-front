@@ -25,20 +25,55 @@ export default function SignUpForm() {
         <StyledSignUpFormWrapper onSubmit={handleSubmit(onSubmit)}>
             <StyledInputContainer>
                 <StyledNameInputBox>
-                    <StyledNameInputField {...register('name', { required: true })} type="text" placeholder="Name" hasError={Boolean(errors.name)} />
-                    {errors.name && '이름을 입력해주세요.'}
+                    <StyledNameInputField
+                        {...register('name', { required: '이름을 입력해주세요.', maxLength: { value: 10, message: '10글자 이내로 입력해주세요.' } })}
+                        type="text"
+                        placeholder="Name"
+                        hasError={Boolean(errors.name)}
+                    />
+                    {errors.name?.message}
                 </StyledNameInputBox>
                 <StyledNameInputBoxRight>
-                    <StyledNameInputField {...register('nickName', { required: true })} type="text" placeholder="NickName" hasError={Boolean(errors.nickName)} />
-                    {errors.nickName && '닉네임을 입력해주세요.'}
+                    <StyledNameInputField
+                        {...register('nickName', {
+                            required: '닉네임을 입력해주세요',
+                            minLength: { value: 2, message: '2글자 이상 입력해주세요.' },
+                            maxLength: { value: 10, message: '10글자 이내로 입력해주세요.' },
+                        })}
+                        type="text"
+                        placeholder="NickName"
+                        hasError={Boolean(errors.nickName)}
+                    />
+                    {errors.nickName?.message}
                 </StyledNameInputBoxRight>
             </StyledInputContainer>
             <StyledInputBox>
-                <StyledInputField {...register('email', { required: true })} type="email" placeholder="Email" hasError={Boolean(errors.email)} /> {errors.email && '이메일을 입력해주세요.'}
+                <StyledInputField
+                    {...register('email', {
+                        required: '이메일을 입력해주세요.',
+                        maxLength: { value: 50, message: '50글자 이내로 입력해주세요.' },
+                        pattern: {
+                            value: /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i,
+                            message: '이메일 형식에 맞지 않습니다.',
+                        },
+                    })}
+                    type="email"
+                    placeholder="Email"
+                    hasError={Boolean(errors.email)}
+                />{' '}
+                {errors.email?.message}
             </StyledInputBox>
             <StyledInputBox>
-                <StyledInputField {...register('password', { required: true })} type="password" placeholder="Password" hasError={Boolean(errors.password)} />{' '}
-                {errors.password && '비밀번호를 입력해주세요.'}
+                <StyledInputField
+                    {...register('password', {
+                        required: '비밀번호를 입력해주세요.',
+                        maxLength: { value: 20, message: '20글자 이내로 입력해주세요.' },
+                    })}
+                    type="password"
+                    placeholder="Password"
+                    hasError={Boolean(errors.password)}
+                />{' '}
+                {errors.password?.message}
             </StyledInputBox>
             <StyledSignUpSubmitButton>Create Account</StyledSignUpSubmitButton>
         </StyledSignUpFormWrapper>

@@ -6,7 +6,7 @@ function App() {
     const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID || 'defaultClientId';
     return (
         <div className="App">
-            <GlobalStyle />{' '}
+            <GlobalStyle />
             <GoogleOAuthProvider clientId={clientId}>
                 <Router />
             </GoogleOAuthProvider>

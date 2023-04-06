@@ -1,9 +1,9 @@
 import React from 'react';
 import TestHeader from '@components/TestHeader';
-import SignUpForm from '@/components/SignUpForm';
+import SignUpForm from '@/components/SignUp/SignUpForm';
 import styled from 'styled-components';
-import RocketAnimation from '@components/RocketAnimation';
-import SignUpWithLogin from '@/components/SignUpWithLogin';
+import RocketAnimation from '@/components/SignUp/RocketAnimation';
+import SignUpWithLogin from '@/components/SignUp/SignUpWithLogin';
 
 export default function SignUp() {
     return (

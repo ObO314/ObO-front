@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyledSignUpLogoButton } from '@components/GoogleLoginButton';
+import { StyledSignUpLogoButton } from '@/components/SignUp/GoogleLoginButton';
 import GithubLogo from '@assets/images/github-logo.png';
 import { v4 as uuidv4 } from 'uuid';
 
