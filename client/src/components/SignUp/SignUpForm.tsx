@@ -1,26 +1,53 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { useNavigate } from 'react-router';
+import axios from 'axios';
 
 interface FormInputs {
     name: string;
     nickName: string;
     email: string;
     password: string;
+    confirmPassword: string;
 }
 
 interface InputProps {
     hasError?: boolean;
 }
 
-const onSubmit: SubmitHandler<FormInputs> = data => console.log(data);
 export default function SignUpForm() {
+    const navigate = useNavigate();
     const {
         register,
         formState: { errors },
         handleSubmit,
+        watch,
+        reset,
     } = useForm<FormInputs>();
 
+    const password = useRef({});
+    password.current = watch('password', '');
+    /* confirmPassword 필드에 대한 유효성 검사 함수 */
+    const validateConfirmPassword = (value: string) => {
+        if (value !== password.current) {
+            return '비밀번호가 일치하지 않습니다.';
+        }
+        return true;
+    };
+    const onSubmit: SubmitHandler<FormInputs> = async data => {
+        try {
+            const { confirmPassword, ...userData } = data;
+            const response = await axios.post('http://localhost:8000/api/signup', userData, { headers: { 'Content-Type': 'application/json' } });
+            console.log(response.data);
+            navigate('/login');
+        } catch (error) {
+            alert('오류가 발생했습니다. 관리자에게 문의하세요.');
+            console.log(error);
+            navigate('/signup');
+            reset();
+        }
+    };
     return (
         <StyledSignUpFormWrapper onSubmit={handleSubmit(onSubmit)}>
             <StyledInputContainer>
@@ -60,7 +87,7 @@ export default function SignUpForm() {
                     type="email"
                     placeholder="Email"
                     hasError={Boolean(errors.email)}
-                />{' '}
+                />
                 {errors.email?.message}
             </StyledInputBox>
             <StyledInputBox>
@@ -72,8 +99,21 @@ export default function SignUpForm() {
                     type="password"
                     placeholder="Password"
                     hasError={Boolean(errors.password)}
-                />{' '}
+                />
                 {errors.password?.message}
+            </StyledInputBox>
+            <StyledInputBox>
+                <StyledInputField
+                    {...register('confirmPassword', {
+                        required: '비밀번호를 다시 한번 입력해주세요.',
+                        maxLength: { value: 20, message: '20글자 이내로 입력해주세요.' },
+                        validate: validateConfirmPassword,
+                    })}
+                    type="password"
+                    placeholder="confirm-Password"
+                    hasError={Boolean(errors.confirmPassword)}
+                />
+                {errors.confirmPassword?.message}
             </StyledInputBox>
             <StyledSignUpSubmitButton>Create Account</StyledSignUpSubmitButton>
         </StyledSignUpFormWrapper>
@@ -124,7 +164,7 @@ export const StyledSignUpSubmitButton = styled.button`
     width: 100%;
     height: var(--input-height);
     font-weight: 400;
-    margin-top: 2rem;
+    margin-top: 1.5rem;
     font-size: 1.5rem;
     color: #ffffff;
     background-color: var(--oboCoral);
