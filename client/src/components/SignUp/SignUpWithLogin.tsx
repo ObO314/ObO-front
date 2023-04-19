@@ -3,17 +3,18 @@ import styled from 'styled-components';
 import HoriZontalRule from '@/components/SignUp/HoriZontalRule';
 import GoogleLoginButton from '@/components/SignUp/GoogleLoginButton';
 import GithubLoginButton from '@/components/SignUp/GithubLoginButton';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { useValidation } from '@/hooks/useValidation';
 
 export default function SignUpWithLogin() {
-    const { params } = useParams();
+    const { pathname } = useValidation();
     return (
         <StyledSignUpContainer>
-            <StyledSignUpTileBox>{params === 'login' ? 'Log in' : 'Sign up'}</StyledSignUpTileBox>
+            <StyledSignUpTileBox>{pathname === '/login' ? 'Log in' : 'Sign up'}</StyledSignUpTileBox>
             <StyledSignUpLoginContainer>
                 <StyledSignUpLoginBox>
-                    {params === 'login' ? '아직 계정이 없으신가요?' : '이미 계정이 있으신가요?'}
-                    <StyledSignUpLoginLink to={params === 'login' ? 'signup' : '/login'}>{params === 'login' ? '회원가입' : '로그인'}</StyledSignUpLoginLink>
+                    {pathname === '/login' ? '아직 계정이 없으신가요?' : '이미 계정이 있으신가요?'}
+                    <StyledSignUpLoginLink to={pathname === '/login' ? '/signup' : '/login'}>{pathname === '/login' ? '회원가입' : '로그인'}</StyledSignUpLoginLink>
                 </StyledSignUpLoginBox>
                 <StyledSignUpLogoBox>
                     <GoogleLoginButton />

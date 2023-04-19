@@ -1,30 +1,32 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
-import { useForm, SubmitHandler } from 'react-hook-form';
+import { InputProps, FormInputs } from '@/types/signUpFormType';
+import { useValidation } from '@/hooks/useValidation';
+import { SubmitHandler } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 import axios from 'axios';
 
-interface FormInputs {
-    name: string;
-    nickName: string;
-    email: string;
-    password: string;
-    confirmPassword: string;
-}
-
-interface InputProps {
-    hasError?: boolean;
-}
-
 export default function SignUpForm() {
+    const { register, watch, errors, reset, handleSubmit, pathname } = useValidation();
     const navigate = useNavigate();
-    const {
-        register,
-        formState: { errors },
-        handleSubmit,
-        watch,
-        reset,
-    } = useForm<FormInputs>();
+
+    const OnSubmitFunction: SubmitHandler<FormInputs> = async data => {
+        try {
+            const { confirmPassword, ...userData } = data;
+            if (pathname === '/login') {
+                const response = await axios.get(`/api${pathname}`);
+                console.log('전송된 데이터 : ', response.data, '상태 코드 : ', response.status);
+            } else if (pathname === '/signup') {
+                await axios.post(`/api/${pathname}`, userData, { headers: { 'Content-Type': 'application/json' } });
+            }
+            navigate('/');
+        } catch (error) {
+            alert('오류가 발생했습니다. 관리자에게 문의하세요.');
+            const failedPath = pathname === '/login' ? '/login' : '/signup';
+            navigate(failedPath);
+            reset();
+        }
+    };
 
     const password = useRef({});
     password.current = watch('password', '');
@@ -35,21 +37,9 @@ export default function SignUpForm() {
         }
         return true;
     };
-    const onSubmit: SubmitHandler<FormInputs> = async data => {
-        try {
-            const { confirmPassword, ...userData } = data;
-            const response = await axios.post('http://localhost:8000/api/signup', userData, { headers: { 'Content-Type': 'application/json' } });
-            console.log(response.data);
-            navigate('/login');
-        } catch (error) {
-            alert('오류가 발생했습니다. 관리자에게 문의하세요.');
-            console.log(error);
-            navigate('/signup');
-            reset();
-        }
-    };
+
     return (
-        <StyledSignUpFormWrapper onSubmit={handleSubmit(onSubmit)}>
+        <StyledSignUpFormWrapper onSubmit={handleSubmit(OnSubmitFunction)}>
             <StyledInputContainer>
                 <StyledNameInputBox>
                     <StyledNameInputField
@@ -115,7 +105,7 @@ export default function SignUpForm() {
                 />
                 {errors.confirmPassword?.message}
             </StyledInputBox>
-            <StyledSignUpSubmitButton>Create Account</StyledSignUpSubmitButton>
+            <StyledSignUpSubmitButton>{pathname === '/login' ? 'Log in' : 'Create Account'}</StyledSignUpSubmitButton>
         </StyledSignUpFormWrapper>
     );
 }
