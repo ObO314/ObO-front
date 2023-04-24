@@ -111,6 +111,10 @@ export const GlobalStyle = createGlobalStyle`
         --input-height: 4.5rem;
         --input-error-red:#ec3257;
         --input-focus-color: #00c1a2;
+        --input-shadow-gray: #D2D2D2;
+        --edit-gray: #F1F5F8;
+        --edit-hover-gray: #DAE1E7;
+        --edit-font-gray: #3D4852;
         /* --vh: 100%; */
     }
     *{
@@ -137,8 +141,6 @@ export const GlobalStyle = createGlobalStyle`
         font-weight: 300;
         font-style: 18px;
         color: inherit;
-    }
-    input {
         font-size: 18px;
     }
     button {

@@ -2,7 +2,8 @@ import React from 'react';
 import TestHeader from '@components/TestHeader';
 import SignUpForm from '@/components/SignUp/SignUpForm';
 import styled from 'styled-components';
-import RocketAnimation from '@/components/SignUp/RocketAnimation';
+import animationData from '@assets/lotties/rocket.json';
+import LottieAnimation, { StyledRocketContainer } from '@/components/Common/LottieAnimation';
 import SignUpWithLogin from '@/components/SignUp/SignUpWithLogin';
 
 export default function SignUp() {
@@ -11,7 +12,9 @@ export default function SignUp() {
             <TestHeader />
             <StyledContainer>
                 <StyledBox>
-                    <RocketAnimation />
+                    <StyledRocketContainer>
+                        <LottieAnimation animationData={animationData} />
+                    </StyledRocketContainer>
                 </StyledBox>
                 <StyledBox>
                     <StyledSignUpBox>
@@ -26,7 +29,7 @@ export default function SignUp() {
 
 export const StyledContainer = styled.div`
     width: 100%;
-    height: 100%;
+    height: calc(100% - 88px - 3rem);
     display: flex;
     margin-top: 3rem;
 `;
