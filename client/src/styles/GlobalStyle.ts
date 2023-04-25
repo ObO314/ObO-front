@@ -98,6 +98,7 @@ export const GlobalStyle = createGlobalStyle`
         font-family: "Heebo";
         background-color: #ffffff;
         color: black;
+        --white : #ffffff;
         --oboGreen : #009874;
         --oboLightGreen : #00B59A;
         --oboDeepGreen : #005541;
