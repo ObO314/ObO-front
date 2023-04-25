@@ -3,7 +3,7 @@ import { StyledSignUpFormWrapper, StyledInputBox, StyledInputField, StyledSignUp
 import { useValidation } from '@/hooks/useValidation';
 import { SubmitHandler } from 'react-hook-form';
 import { FormInputs } from '@/types/signUpFormType';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 export default function LoginForm() {

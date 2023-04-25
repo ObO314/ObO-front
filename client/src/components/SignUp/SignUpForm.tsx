@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { InputProps, FormInputs } from '@/types/signUpFormType';
 import { useValidation } from '@/hooks/useValidation';
 import { SubmitHandler } from 'react-hook-form';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 export default function SignUpForm() {
