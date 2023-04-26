@@ -5,3 +5,11 @@ export interface TitleTextProps {
 export interface disabeldProps {
     disabled: boolean;
 }
+
+export interface subMenuProps {
+    subMenu: string;
+}
+
+export interface menuValueProps {
+    menuValue: string;
+}

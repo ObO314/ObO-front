@@ -1,24 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { FiLogIn } from 'react-icons/fi';
+import { useNavigate } from 'react-router-dom';
+import SubMenu from '@/components/ReadMe/SubMenu';
 
 const oboLogoPath = '/images/obo.png';
 const oboLogo = process.env.PUBLIC_URL + oboLogoPath;
 
 export default function TestHeader() {
+    const [subMenu, setSubMenu] = useState('');
     const menuNameArray = ['My', 'Group', 'Blog', 'Community'];
+    const navigate = useNavigate();
     return (
-        <StyledTestHeader>
-            <StyledLogo />
-            <StyledMenuContainer>
-                <StyledMenuList>
-                    {menuNameArray.map((elem, index) => {
-                        return <StyledMenuItem key={`${elem}-${index}`}>{elem}</StyledMenuItem>;
-                    })}
-                </StyledMenuList>
-                <StyledLoginIcon />
-            </StyledMenuContainer>
-        </StyledTestHeader>
+        <>
+            <StyledTestHeader>
+                <StyledLogo onClick={() => navigate('/')} />
+                <StyledMenuContainer>
+                    <StyledMenuList>
+                        {menuNameArray.map((elem, index) => {
+                            return (
+                                <StyledMenuItem key={`${elem}-${index}`} onMouseEnter={() => setSubMenu(elem)} onMouseLeave={() => setSubMenu('')}>
+                                    {elem}
+                                </StyledMenuItem>
+                            );
+                        })}
+                        <StyledDetailedMenuContainer>{subMenu && <SubMenu subMenu={subMenu} />}</StyledDetailedMenuContainer>
+                    </StyledMenuList>
+                    <StyledLoginIcon />
+                </StyledMenuContainer>
+            </StyledTestHeader>
+        </>
     );
 }
 
@@ -29,6 +40,7 @@ const StyledTestHeader = styled.div`
     justify-content: space-between;
     color: var(--oboBlack);
     background-color: var(--oboGreen);
+    position: relative;
 `;
 
 const StyledLogo = styled.img.attrs({
@@ -40,25 +52,45 @@ const StyledLogo = styled.img.attrs({
     cursor: pointer;
 `;
 
+const StyledDetailedMenuContainer = styled.div`
+    width: 100%;
+    height: 150%;
+    background-color: var(--hover-green);
+    position: absolute;
+    top: 100%;
+    left: 0;
+    display: none;
+`;
+
 const StyledMenuContainer = styled.div`
     width: 70%;
     height: 100%;
     display: flex;
     align-items: center;
-    padding: 0 2% 2% 0;
+    padding: 2% 2% 2% 0;
 `;
 
 const StyledMenuList = styled.ul`
     width: 100%;
-    height: 100%;
+    height: inherit;
     display: flex;
+    justify-content: space-between;
     align-items: center;
 `;
 
 const StyledMenuItem = styled.li`
-    margin-left: 12%;
+    width: 100%;
+    height: inherit;
+    text-align: center;
+    margin-right: 10%;
     font-size: 28px;
     cursor: pointer;
+    &:hover {
+        & ~ ${StyledDetailedMenuContainer} {
+            display: block;
+        }
+        color: var(--white);
+    }
 `;
 
 const StyledLoginIcon = styled(FiLogIn)`
