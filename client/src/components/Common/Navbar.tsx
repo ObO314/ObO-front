@@ -19,7 +19,7 @@ export default function TestHeader() {
                     <StyledMenuList>
                         {menuNameArray.map((elem, index) => {
                             return (
-                                <StyledMenuItem key={`${elem}-${index}`} onMouseEnter={() => setSubMenu(elem)} onMouseLeave={() => setSubMenu('')}>
+                                <StyledMenuItem key={`${elem}-${index}`} onMouseEnter={() => setSubMenu(elem)}>
                                     {elem}
                                 </StyledMenuItem>
                             );
@@ -54,12 +54,15 @@ const StyledLogo = styled.img.attrs({
 
 const StyledDetailedMenuContainer = styled.div`
     width: 100%;
-    height: 150%;
+    height: 180%;
     background-color: var(--hover-green);
     position: absolute;
     top: 100%;
     left: 0;
     display: none;
+    &:hover {
+        display: block;
+    }
 `;
 
 const StyledMenuContainer = styled.div`
@@ -67,7 +70,7 @@ const StyledMenuContainer = styled.div`
     height: 100%;
     display: flex;
     align-items: center;
-    padding: 2% 2% 2% 0;
+    padding-right: 2%;
 `;
 
 const StyledMenuList = styled.ul`
@@ -84,6 +87,7 @@ const StyledMenuItem = styled.li`
     text-align: center;
     margin-right: 10%;
     font-size: 28px;
+    padding: 3% 2% 2% 0;
     cursor: pointer;
     &:hover {
         & ~ ${StyledDetailedMenuContainer} {

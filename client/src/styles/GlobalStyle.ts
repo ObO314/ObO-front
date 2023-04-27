@@ -117,6 +117,8 @@ export const GlobalStyle = createGlobalStyle`
         --edit-hover-gray: #DAE1E7;
         --edit-font-gray: #3D4852;
         --hover-green: #E9F0EE;
+        --button-gray: #EEEEEE;
+        --warning-yellow: #FFB412;
         /* --vh: 100%; */
     }
     *{
