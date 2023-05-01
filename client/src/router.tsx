@@ -5,10 +5,16 @@ import Callback from '@/pages/Callback';
 import Login from '@/pages/Login';
 import ReadMe from '@/pages/ReadMe';
 import MainPage from '@/pages/MainPage';
+import Navbar from '@/components/Common/Navbar';
+import { useModalStore } from '@/store/store';
+import ConfirmModal from '@/components/Common/ConfirmModal';
 
 const Router = () => {
+    const { isShow } = useModalStore();
     return (
         <BrowserRouter>
+            <Navbar />
+            {isShow ? <ConfirmModal /> : null}
             <Routes>
                 <Route path="/" element={<MainPage />} />
                 <Route path="/signup" element={<SignUp />} />

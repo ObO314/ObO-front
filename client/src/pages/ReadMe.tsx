@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { StyledContainer } from '@/pages/SignUp';
-import Navbar from '@/components/Common/Navbar';
 import TitleHeader from '@components/Common/TitleHeader';
 import UserProfile from '@/components/ReadMe/UserProfile';
 import IntroductionText from '@/components/ReadMe/IntroductionText';
@@ -11,7 +10,6 @@ export default function ReadMe() {
 
     return (
         <>
-            <Navbar />
             <StyledReadMeContainer>
                 <TitleHeader titleText={titleText} />
                 <StyledContentContainer>

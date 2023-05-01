@@ -13,3 +13,12 @@ export interface subMenuProps {
 export interface menuValueProps {
     menuValue: string;
 }
+
+export interface isShowProps {
+    isShow: boolean;
+}
+
+export interface isShowState extends isShowProps {
+    yesIsShow: () => void;
+    noIsShow: () => void;
+}

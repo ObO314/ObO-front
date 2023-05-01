@@ -1,5 +1,4 @@
 import React from 'react';
-import Navbar from '@/components/Common/Navbar';
 import SignUpForm from '@/components/SignUp/SignUpForm';
 import styled from 'styled-components';
 import animationData from '@assets/lotties/rocket.json';
@@ -9,7 +8,6 @@ import SignUpWithLogin from '@/components/SignUp/SignUpWithLogin';
 export default function SignUp() {
     return (
         <>
-            <Navbar />
             <StyledContainer>
                 <StyledBox>
                     <StyledRocketContainer>

@@ -2,16 +2,19 @@ import React from 'react';
 import styled from 'styled-components';
 import { IoWarningOutline } from 'react-icons/io5';
 import { useNavigate } from 'react-router-dom';
+import { useModalStore } from '@/store/store';
 
 export default function ConfirmModal() {
     const navigate = useNavigate();
+    const { noIsShow } = useModalStore();
     const textContent = '로그인이 필요한 메뉴입니다.\n로그인 하시겠습니까?';
     const handleConfirm = () => {
         navigate('/login');
+        noIsShow();
     };
 
     const handleCancel = () => {
-        return;
+        noIsShow();
     };
 
     return (
@@ -32,17 +35,24 @@ export default function ConfirmModal() {
 }
 
 const StyledModalWrapper = styled.div`
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`;
+
+const StyledModalContent = styled.div`
     width: 450px;
     height: 200px;
     background-color: var(--white);
     border-radius: 10px;
     font-family: 'NotoSansKR';
     font-weight: 600;
-`;
-
-const StyledModalContent = styled.div`
-    width: inherit;
-    height: inherit;
     display: flex;
     flex-direction: column;
     align-items: center;

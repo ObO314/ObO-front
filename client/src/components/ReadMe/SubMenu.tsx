@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { menuValueProps, subMenuProps } from '@/types/variableType';
 import { useNavigate } from 'react-router-dom';
 import ConfirmModal from '@/components/Common/ConfirmModal';
+import { useModalStore } from '@/store/store';
 
 const MY = 'My';
 const GROUP = 'Group';
@@ -14,7 +15,7 @@ export default function SubMenu(subMenu: subMenuProps) {
     const BlogSubMenuArray = ['Home', 'My Blog'];
     const communitySubMenuArray = ['Member Recruit', 'Anonymous', 'Question & Answer'];
     const [subMenuArray, setSubMenuArray] = useState<string[]>([]);
-    const [showModal, setShowModal] = useState(false);
+    const { yesIsShow } = useModalStore();
     const navigate = useNavigate();
 
     /* 사용자 고유 id값 로그인 시 상태값 업데이트,
@@ -44,9 +45,8 @@ export default function SubMenu(subMenu: subMenuProps) {
     const handleOnClick = (elem: string) => {
         const subMenuName = elem.replaceAll(' ', '').toLocaleLowerCase();
         const MenuName = subMenu.subMenu.replaceAll(' ', '').toLocaleLowerCase();
-
         if (!id) {
-            setShowModal(prev => !prev);
+            yesIsShow();
         } else {
             if (subMenu.subMenu === MY || subMenu.subMenu === GROUP) {
                 navigate(`/${MenuName}/${subMenuName}/${id}`);
@@ -82,7 +82,6 @@ export default function SubMenu(subMenu: subMenuProps) {
 
     return (
         <>
-            {showModal ? <ConfirmModal /> : null}
             {subMenuArray.map((elem, index) => (
                 <StyledSubMenuContainer key={`${elem}-${index}-${index}`} menuValue={subMenu.subMenu} onClick={() => handleOnClick(elem)}>
                     {elem}

@@ -13,7 +13,7 @@ export default function TestHeader() {
     const navigate = useNavigate();
     return (
         <>
-            <StyledTestHeader>
+            <StyledHeader>
                 <StyledLogo onClick={() => navigate('/')} />
                 <StyledMenuContainer>
                     <StyledMenuList>
@@ -28,12 +28,12 @@ export default function TestHeader() {
                     </StyledMenuList>
                     <StyledLoginIcon />
                 </StyledMenuContainer>
-            </StyledTestHeader>
+            </StyledHeader>
         </>
     );
 }
 
-const StyledTestHeader = styled.div`
+const StyledHeader = styled.div`
     width: 100%;
     height: 88px;
     display: flex;
