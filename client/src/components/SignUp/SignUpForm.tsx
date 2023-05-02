@@ -156,7 +156,7 @@ export const StyledSignUpSubmitButton = styled.button`
     font-weight: 400;
     margin-top: 1.5rem;
     font-size: 1.5rem;
-    color: #ffffff;
+    color: var(----white);
     background-color: var(--oboCoral);
     border: 1px solid var(--gray-color);
     border-radius: 10px;

@@ -98,6 +98,7 @@ export const GlobalStyle = createGlobalStyle`
         font-family: "Heebo";
         background-color: #ffffff;
         color: black;
+        --white : #ffffff;
         --oboGreen : #009874;
         --oboLightGreen : #00B59A;
         --oboDeepGreen : #005541;
@@ -115,6 +116,9 @@ export const GlobalStyle = createGlobalStyle`
         --edit-gray: #F1F5F8;
         --edit-hover-gray: #DAE1E7;
         --edit-font-gray: #3D4852;
+        --hover-green: #E9F0EE;
+        --button-gray: #EEEEEE;
+        --warning-yellow: #FFB412;
         /* --vh: 100%; */
     }
     *{
