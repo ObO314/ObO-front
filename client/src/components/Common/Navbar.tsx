@@ -26,7 +26,7 @@ export default function TestHeader() {
                         })}
                         <StyledDetailedMenuContainer>{subMenu && <SubMenu subMenu={subMenu} />}</StyledDetailedMenuContainer>
                     </StyledMenuList>
-                    <StyledLoginIcon />
+                    <StyledLoginIcon onClick={() => navigate('/login')} />
                 </StyledMenuContainer>
             </StyledHeader>
         </>
