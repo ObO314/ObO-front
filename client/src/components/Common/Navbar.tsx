@@ -12,7 +12,7 @@ export default function TestHeader() {
     const menuNameArray = ['My', 'Group', 'Blog', 'Community'];
     const navigate = useNavigate();
     return (
-        <>
+        <StyledNavWrapper>
             <StyledHeader>
                 <StyledLogo onClick={() => navigate('/')} />
                 <StyledMenuContainer>
@@ -29,9 +29,15 @@ export default function TestHeader() {
                     <StyledLoginIcon onClick={() => navigate('/login')} />
                 </StyledMenuContainer>
             </StyledHeader>
-        </>
+        </StyledNavWrapper>
     );
 }
+
+const StyledNavWrapper = styled.div`
+    width: 1160px;
+    height: 88px;
+    position: fixed;
+`;
 
 const StyledHeader = styled.div`
     width: 100%;
