@@ -22,3 +22,7 @@ export interface isShowState extends isShowProps {
     yesIsShow: () => void;
     noIsShow: () => void;
 }
+
+export interface indexProps {
+    index: number;
+}
