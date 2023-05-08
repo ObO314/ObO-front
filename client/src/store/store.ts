@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { devtools, persist, createJSONStorage } from 'zustand/middleware';
-import { isShowState } from '@/types/variableType';
+import { initialScrollState, isShowState, scrollState } from '@/types/variableType';
 
 export const useModalStore = create<isShowState>()(
     devtools(
@@ -11,8 +11,37 @@ export const useModalStore = create<isShowState>()(
                 noIsShow: () => set({ isShow: false }),
             }),
             {
-                name: 'modal-storage', // unique name
-                storage: createJSONStorage(() => sessionStorage), // (optional) by default, 'localStorage' is used
+                name: 'modal-storage',
+                storage: createJSONStorage(() => sessionStorage),
+            },
+        ),
+    ),
+);
+
+export const useScrollStore = create<scrollState>()(
+    devtools(
+        persist(
+            set => ({
+                scrollIndex: 0,
+                setScrollIndex: (position: number) => set({ scrollIndex: position }),
+            }),
+            {
+                name: 'scroll-storage',
+                storage: createJSONStorage(() => sessionStorage),
+            },
+        ),
+    ),
+);
+export const useInitialScrollStore = create<initialScrollState>()(
+    devtools(
+        persist(
+            set => ({
+                initialScrollState: true,
+                setInitialScrollState: (state: boolean) => set({ initialScrollState: state }),
+            }),
+            {
+                name: 'initial-scroll-storage',
+                storage: createJSONStorage(() => sessionStorage),
             },
         ),
     ),

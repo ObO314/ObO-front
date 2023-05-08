@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import LottieAnimation from '@/components/Common/LottieAnimation';
@@ -7,6 +7,8 @@ import chartAnimationData from '@assets/lotties/graph-chart.json';
 import teamAnimationData from '@assets/lotties/team-image.json';
 import manageAnimationData from '@assets/lotties/manage-image.json';
 import { indexProps } from '@/types/variableType';
+import { useInitialScrollStore, useScrollStore } from '@/store/store';
+import { FaChevronCircleUp } from 'react-icons/fa';
 
 export default function MainPage() {
     const navigate = useNavigate();
@@ -17,12 +19,26 @@ export default function MainPage() {
         '그룹을 만들어\n동료들과 함께\n일정을 관리해보세요',
         '이 모든 것, ObO로\n지금 시작해보세요',
     ];
+    const sectionRefs = [useRef<HTMLDivElement>(null), useRef<HTMLDivElement>(null), useRef<HTMLDivElement>(null), useRef<HTMLDivElement>(null)];
+    const { scrollIndex, setScrollIndex } = useScrollStore();
+    const { initialScrollState, setInitialScrollState } = useInitialScrollStore();
+
+    useEffect(() => {
+        setInitialScrollState(true);
+    }, []);
+    useEffect(() => {
+        if (!initialScrollState) sectionRefs[scrollIndex].current?.scrollIntoView({ behavior: 'smooth' });
+    }, [scrollIndex]);
+
+    const handleUpButtonClick = () => {
+        setScrollIndex(0);
+    };
 
     return (
         <StyledMainWrapper>
             {animationDataArray.map((item, index) => {
                 return (
-                    <StyledSectionContainer key={index} index={index}>
+                    <StyledSectionContainer key={index} index={index} ref={sectionRefs[index]}>
                         {index <= 1 ? null : index === 3 ? (
                             <StyledSubWrapper>
                                 <StyledTextContainer>{explainTextArray[index]}</StyledTextContainer>
@@ -35,6 +51,12 @@ export default function MainPage() {
                         <StyledAnimationContainer>
                             <LottieAnimation animationData={item} />
                         </StyledAnimationContainer>
+                        {index === 3 ? (
+                            <StyledUpButton onClick={handleUpButtonClick}>
+                                <StyledUpIcon />
+                            </StyledUpButton>
+                        ) : null}
+
                         {index <= 1 ? <StyledTextContainer>{explainTextArray[index]}</StyledTextContainer> : null}
                     </StyledSectionContainer>
                 );
@@ -89,4 +111,14 @@ const StyledSubWrapper = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+`;
+
+const StyledUpButton = styled.button`
+    width: 50px;
+    height: 50px;
+`;
+
+const StyledUpIcon = styled(FaChevronCircleUp)`
+    font-size: 40px;
+    color: var(--oboGreen);
 `;

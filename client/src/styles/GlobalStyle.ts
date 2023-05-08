@@ -98,6 +98,7 @@ export const GlobalStyle = createGlobalStyle`
         font-family: "Heebo";
         background-color: #ffffff;
         color: black;
+        font-size: 18px;
         --white : #ffffff;
         --oboGreen : #009874;
         --oboLightGreen : #00B59A;
@@ -124,13 +125,17 @@ export const GlobalStyle = createGlobalStyle`
     *{
          box-sizing: border-box;
     }
-    .App {
-        max-width: 1200px;
+    .App {        
+        /* max-width: 1200px;
         margin: 0 auto;
-        padding: 0 20px;
-        font-size: 18px;
-        /* overflow: hidden; */
+        padding: 0 20px; */
         height: calc(var(--vh, 1vh) * 100);
+        overflow-y: scroll;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+    .App::-webkit-scrollbar {
+        display: none;
     }
     a {
         text-decoration: none;
