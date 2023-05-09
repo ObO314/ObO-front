@@ -5,7 +5,7 @@ import animationData from '@assets/lotties/profile-image.json';
 import { FaUserCircle } from 'react-icons/fa';
 import { AiOutlineUpload } from 'react-icons/ai';
 import LottieAnimation from '@/components/Common/LottieAnimation';
-import { StyledPencilIcon } from '@components/Common/TitleHeader';
+import { StyledPencilIcon } from '@components/Common/PencilIcon';
 
 export default function UserProfile() {
     const [disabled, setDisabled] = useState(true);

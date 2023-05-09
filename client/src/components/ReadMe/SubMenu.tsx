@@ -20,7 +20,7 @@ export default function SubMenu(subMenu: subMenuProps) {
 
     /* 사용자 고유 id값 로그인 시 상태값 업데이트,
     전역상태 관리로 관리하여 가져와야함.(zustand) */
-    const id = undefined;
+    const id = '123';
 
     useEffect(() => {
         switch (subMenu.subMenu) {
