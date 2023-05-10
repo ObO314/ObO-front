@@ -45,3 +45,8 @@ export interface isClickedArrayProps {
 export interface isClickedProps {
     isClicked: boolean;
 }
+
+export interface categoryState {
+    categoryName: string;
+    setCategoryName: (state: string) => void;
+}

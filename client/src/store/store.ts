@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { devtools, persist, createJSONStorage } from 'zustand/middleware';
-import { initialScrollState, isShowState, scrollState } from '@/types/variableType';
+import { categoryState, initialScrollState, isShowState, scrollState } from '@/types/variableType';
 
 export const useModalStore = create<isShowState>()(
     devtools(
@@ -41,6 +41,21 @@ export const useInitialScrollStore = create<initialScrollState>()(
             }),
             {
                 name: 'initial-scroll-storage',
+                storage: createJSONStorage(() => sessionStorage),
+            },
+        ),
+    ),
+);
+
+export const useCategoryStore = create<categoryState>()(
+    devtools(
+        persist(
+            set => ({
+                categoryName: '',
+                setCategoryName: (state: string) => set({ categoryName: state }),
+            }),
+            {
+                name: 'categoryName-storage',
                 storage: createJSONStorage(() => sessionStorage),
             },
         ),
