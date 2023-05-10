@@ -1,35 +1,46 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import TitleHeader from '@/components/Common/TitleHeader';
+import { isClickedArrayProps, isClickedProps } from '@/types/variableType';
 import { StyledWrapperContainer } from '@/pages/ReadMe';
-import { Link } from 'react-router-dom';
+import TitleHeader from '@/components/Common/TitleHeader';
 import Routine from '@/components/ToDo/Routine';
 import Day from '@/components/ToDo/Day';
 import MonthWeeks from '@/components/ToDo/MonthWeeks';
 
 export default function Todo() {
     const titleText = 'To-Do';
-    const categoryNames = ['Routine', 'Day', 'Month/Weeks'];
-    const buttonRefs = [useRef<HTMLButtonElement>(null), useRef<HTMLButtonElement>(null), useRef<HTMLButtonElement>(null)];
-    const [isClicked, setIsClicked] = useState(false);
+    const [routineIsClicked, setRoutineIsClicked] = useState(false);
+    const [dayIsClicked, setDayIsClicked] = useState(false);
+    const [monthWeeksIsClicked, setMonthWeeksIsClicked] = useState(false);
     const [categoryName, setCategoryName] = useState('');
-    const handleOnClick = (item: string, index: number) => {
-        if (buttonRefs[index].current) {
-            const currentButton = buttonRefs[index].current?.textContent;
-            setIsClicked(item === currentButton);
-            console.log(isClicked);
-        }
-        if (isClicked) setCategoryName(item);
+
+    const isClickedArray: isClickedArrayProps[] = [
+        { name: 'Routine', setValue: setRoutineIsClicked, value: routineIsClicked },
+        { name: 'Day', setValue: setDayIsClicked, value: dayIsClicked },
+        { name: 'Month/Weeks', setValue: setMonthWeeksIsClicked, value: monthWeeksIsClicked },
+    ];
+
+    const handleOnClick = (item: isClickedArrayProps, index: number) => {
+        const setValue = item.setValue;
+        isClickedArray.forEach((item, idx) => {
+            if (idx === index) {
+                setValue(true);
+                setCategoryName(item.name);
+            } else {
+                item.setValue(false);
+            }
+        });
     };
+
     return (
         <StyledWrapperContainer>
             <StyledTitleContainer>
                 <TitleHeader titleText={titleText} />
                 <StyledCategoryContainer>
-                    {categoryNames.map((item, index) => {
+                    {isClickedArray.map((item, index) => {
                         return (
-                            <StyledCategoryButton key={`${item}-${index}`} ref={buttonRefs[index]} onClick={() => handleOnClick(item, index)} isClicked={isClicked}>
-                                {item}
+                            <StyledCategoryButton key={`${item.name}-${index}`} onClick={() => handleOnClick(item, index)} isClicked={item.value}>
+                                {item.name}
                             </StyledCategoryButton>
                         );
                     })}
@@ -55,10 +66,6 @@ export const StyledCategoryContainer = styled.div`
     justify-content: space-around;
 `;
 
-interface isClickedProps {
-    isClicked: boolean;
-}
-
 export const StyledCategoryButton = styled.button<isClickedProps>`
     width: 18%;
     height: auto;
@@ -66,7 +73,6 @@ export const StyledCategoryButton = styled.button<isClickedProps>`
     font-weight: 600;
     color: var(--oboGreen);
     background-color: var(--white);
-
     border: ${props => (props.isClicked ? '2px solid var(--oboGreen)' : 'none')};
     border-radius: 30px;
 `;

@@ -36,3 +36,12 @@ export interface initialScrollState {
     initialScrollState: boolean;
     setInitialScrollState: (state: boolean) => void;
 }
+
+export interface isClickedArrayProps {
+    name: string;
+    setValue: React.Dispatch<React.SetStateAction<boolean>>;
+    value: boolean;
+}
+export interface isClickedProps {
+    isClicked: boolean;
+}
