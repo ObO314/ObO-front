@@ -42,7 +42,7 @@ export default function Category() {
 
 export const StyledCategoryContainer = styled.div`
     width: 100%;
-    height: 5%;
+    height: 35%;
     display: flex;
     padding: 0 10%;
     margin-top: 3%;

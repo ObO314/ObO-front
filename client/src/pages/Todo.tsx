@@ -5,7 +5,6 @@ import TitleHeader from '@/components/Common/TitleHeader';
 import Category from '@/components/ToDo/Category';
 import RenderCategoryContent from '@/components/ToDo/RenderCategoryContent';
 import { useCategoryStore } from '@/store/store';
-import DateSelector from '@/components/ToDo/DateSelector';
 
 export default function Todo() {
     const titleText = 'To-Do';
@@ -16,7 +15,6 @@ export default function Todo() {
             <StyledTitleContainer>
                 <TitleHeader titleText={titleText} />
                 <Category />
-                <DateSelector />
             </StyledTitleContainer>
             {RenderCategoryContent(categoryName)}
         </StyledWrapperContainer>
@@ -24,7 +22,7 @@ export default function Todo() {
 }
 export const StyledTitleContainer = styled.div`
     width: 100%;
-    height: 100%;
+    height: 13%;
     display: flex;
     flex-direction: column;
 `;

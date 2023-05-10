@@ -51,7 +51,7 @@ export const useCategoryStore = create<categoryState>()(
     devtools(
         persist(
             set => ({
-                categoryName: '',
+                categoryName: 'Day',
                 setCategoryName: (state: string) => set({ categoryName: state }),
             }),
             {
