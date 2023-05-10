@@ -120,6 +120,7 @@ export const GlobalStyle = createGlobalStyle`
         --hover-green: #E9F0EE;
         --button-gray: #EEEEEE;
         --warning-yellow: #FFB412;
+        --triangle-gray: #D9D9D9;
         /* --vh: 100%; */
     }
     *{
