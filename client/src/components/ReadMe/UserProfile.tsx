@@ -5,11 +5,19 @@ import animationData from '@assets/lotties/profile-image.json';
 import { FaUserCircle } from 'react-icons/fa';
 import { AiOutlineUpload } from 'react-icons/ai';
 import LottieAnimation from '@/components/Common/LottieAnimation';
-import { StyledPencilIcon } from '@components/Common/PencilIcon';
+import { HiOutlinePencil } from 'react-icons/hi';
+import axios from 'axios';
+import { getCookie } from '@/utils/controlCookie';
 
-export default function UserProfile() {
+export const UserProfile = () => {
     const [disabled, setDisabled] = useState(true);
-    const userName = '홍길동';
+    const defaultUserName = '홍길동';
+    // const getUserName = async () => {
+    //     const userName = await axios.get(`${process.env.REACT_APP_LOCAL_URL}/user/read`);
+    //     console.log(userName);
+    //     // get요청 오류 404번 발생, 헤더에 뭐 넣어야되는지 확인하기.
+    // };
+    // getUserName();
     const userProfileImage = '유저이미지';
     const handleButtonClick = () => {
         setDisabled(!disabled);
@@ -33,14 +41,14 @@ export default function UserProfile() {
                 <StyledFileUpload type="file" disabled={disabled} accept=".jpg, .png" onChange={handleFileUpload} />
                 <AiOutlineUpload />
             </StyledInputLabel>
-            <StyledProfileNameInput type="text" value={userName} disabled={disabled} />
+            <StyledProfileNameInput type="text" value={defaultUserName} disabled={disabled} />
             <StyledProfileEditButton onClick={handleButtonClick}>
                 <StyledPencilIconGray />
                 {disabled ? 'Edit Profile' : 'Save Profile'}
             </StyledProfileEditButton>
         </StyledProfileContainer>
     );
-}
+};
 
 const StyledProfileContainer = styled.div`
     width: 30%;
@@ -82,7 +90,7 @@ const StyledProfileNameInput = styled.input`
     padding: 10px 10px;
 `;
 
-const StyledPencilIconGray = styled(StyledPencilIcon)`
+const StyledPencilIconGray = styled(HiOutlinePencil)`
     color: var(--edit-font-gray);
     font-size: 20px;
 `;

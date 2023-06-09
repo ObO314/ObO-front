@@ -5,6 +5,7 @@ import { SubmitHandler } from 'react-hook-form';
 import { FormInputs } from '@/types/signUpFormType';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { setCookie } from '@/utils/controlCookie';
 
 export default function LoginForm() {
     const { register, errors, reset, handleSubmit, pathname } = useValidation();
@@ -14,13 +15,16 @@ export default function LoginForm() {
         try {
             const { confirmPassword, ...userData } = data;
             if (pathname === '/login') {
-                const response = await axios.get(`/api${pathname}`);
-                console.log('전송된 데이터 : ', response.data, '상태 코드 : ', response.status);
+                const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/user/login/local`, JSON.stringify(userData), { headers: { 'Content-Type': 'application/json' } });
+                setCookie({ cookieName: 'login', cookieValue: response.data, exp: 5 });
+
+                navigate('/');
             } else if (pathname === '/signup') {
-                await axios.post(`/api/${pathname}`, userData, { headers: { 'Content-Type': 'application/json' } });
+                await axios.post(`${process.env.REACT_APP_BASE_URL}/user/signup`, JSON.stringify(userData), { headers: { 'Content-Type': 'application/json' } });
+                navigate('/login');
             }
-            navigate('/');
         } catch (error) {
+            console.log(error);
             alert('오류가 발생했습니다. 관리자에게 문의하세요.');
             const failedPath = pathname === '/login' ? '/login' : '/signup';
             navigate(failedPath);

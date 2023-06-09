@@ -1,10 +1,10 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
-import { InputProps, FormInputs } from '@/types/signUpFormType';
+import { FormInputs, InputProps } from '@/types/signUpFormType';
 import { useValidation } from '@/hooks/useValidation';
-import { SubmitHandler } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { SubmitHandler } from 'react-hook-form';
 
 export default function SignUpForm() {
     const { register, watch, errors, reset, handleSubmit, pathname } = useValidation();
@@ -14,12 +14,13 @@ export default function SignUpForm() {
         try {
             const { confirmPassword, ...userData } = data;
             if (pathname === '/login') {
-                const response = await axios.get(`/api${pathname}`);
+                const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/user/login/local`, JSON.stringify(userData), { headers: { 'Content-Type': 'application/json' } });
                 console.log('전송된 데이터 : ', response.data, '상태 코드 : ', response.status);
+                await navigate('/');
             } else if (pathname === '/signup') {
-                await axios.post(`/api/${pathname}`, userData, { headers: { 'Content-Type': 'application/json' } });
+                await axios.post(`${process.env.REACT_APP_BASE_URL}/user/signup`, JSON.stringify(userData), { headers: { 'Content-Type': 'application/json' } });
+                await navigate('/login');
             }
-            navigate('/');
         } catch (error) {
             alert('오류가 발생했습니다. 관리자에게 문의하세요.');
             const failedPath = pathname === '/login' ? '/login' : '/signup';
@@ -27,7 +28,6 @@ export default function SignUpForm() {
             reset();
         }
     };
-
     const password = useRef({});
     password.current = watch('password', '');
     /* confirmPassword 필드에 대한 유효성 검사 함수 */
@@ -52,16 +52,16 @@ export default function SignUpForm() {
                 </StyledNameInputBox>
                 <StyledNameInputBoxRight>
                     <StyledNameInputField
-                        {...register('nickName', {
+                        {...register('nickname', {
                             required: '닉네임을 입력해주세요',
                             minLength: { value: 2, message: '2글자 이상 입력해주세요.' },
                             maxLength: { value: 10, message: '10글자 이내로 입력해주세요.' },
                         })}
                         type="text"
                         placeholder="NickName"
-                        hasError={Boolean(errors.nickName)}
+                        hasError={Boolean(errors.nickname)}
                     />
-                    {errors.nickName?.message}
+                    {errors.nickname?.message}
                 </StyledNameInputBoxRight>
             </StyledInputContainer>
             <StyledInputBox>

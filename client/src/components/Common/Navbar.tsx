@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { FiLogIn } from 'react-icons/fi';
+import { FiLogIn, FiLogOut } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 import SubMenu from '@/components/ReadMe/SubMenu';
+import { deleteCookie, getCookie } from '@/utils/controlCookie';
+import { Modal } from '@/components/Common/Modal';
 
 const oboLogoPath = '/images/obo.png';
 const oboLogo = process.env.PUBLIC_URL + oboLogoPath;
@@ -11,6 +13,13 @@ export default function TestHeader() {
     const [subMenu, setSubMenu] = useState('');
     const menuNameArray = ['My', 'Group', 'Blog', 'Community'];
     const navigate = useNavigate();
+
+    const logout = () => {
+        alert('로그아웃 하시겠습니까?');
+        deleteCookie('login');
+        navigate('/');
+    };
+
     return (
         <>
             <StyledHeader>
@@ -26,7 +35,7 @@ export default function TestHeader() {
                         })}
                         <StyledDetailedMenuContainer>{subMenu && <SubMenu subMenu={subMenu} />}</StyledDetailedMenuContainer>
                     </StyledMenuList>
-                    <StyledLoginIcon onClick={() => navigate('/login')} />
+                    {getCookie('login') ? <StyledLogutIcon onClick={logout} /> : <StyledLoginIcon onClick={() => navigate('/login')} />}
                 </StyledMenuContainer>
             </StyledHeader>
         </>
@@ -98,6 +107,12 @@ const StyledMenuItem = styled.li`
 `;
 
 const StyledLoginIcon = styled(FiLogIn)`
+    font-size: 40px;
+    color: var(--white);
+    cursor: pointer;
+`;
+
+const StyledLogutIcon = styled(FiLogOut)`
     font-size: 40px;
     color: var(--white);
     cursor: pointer;

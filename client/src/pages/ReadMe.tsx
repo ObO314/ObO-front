@@ -1,26 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { StyledContainer } from '@/pages/SignUp';
 import TitleHeader from '@components/Common/TitleHeader';
-import IntroductionText from '@/components/ReadMe/IntroductionText';
-import UserProfile from '@/components/ReadMe/UserProfile';
-import PencilIcon from '@/components/Common/PencilIcon';
+import { IntroductionText } from '@/components/ReadMe/IntroductionText';
+import { UserProfile } from '@/components/ReadMe/UserProfile';
+import { HiOutlinePencil } from 'react-icons/hi2';
+import { Button } from '@/components/Common/Button';
 
 export default function ReadMe() {
     const titleText = 'Read ME';
-
+    const [disabled, setDisabled] = useState(true);
+    const editContent = () => {
+        setDisabled(!disabled);
+    };
     return (
         <>
             <StyledWrapperContainer>
                 <StyledTitleContainer>
-                    <div></div>
                     <TitleHeader titleText={titleText} />
-                    <PencilIcon />
+                    <StyledIconButton onClick={editContent}>{disabled ? <StyledPencilIcon /> : <Button />}</StyledIconButton>
                 </StyledTitleContainer>
 
                 <StyledContentContainer>
                     <UserProfile />
-                    <IntroductionText />
+                    <IntroductionText disabled={disabled} />
                 </StyledContentContainer>
             </StyledWrapperContainer>
         </>
@@ -32,6 +35,7 @@ export const StyledTitleContainer = styled.div`
     width: 100%;
     height: 10%;
     justify-content: space-around;
+    padding-left: 30%;
 `;
 
 export const StyledWrapperContainer = styled(StyledContainer)`
@@ -44,4 +48,14 @@ const StyledContentContainer = styled.div`
     width: 100%;
     height: 100%;
     align-items: center;
+`;
+
+export const StyledIconButton = styled.button`
+    width: 100px;
+    height: auto;
+`;
+
+export const StyledPencilIcon = styled(HiOutlinePencil)`
+    font-size: 32px;
+    color: var(--oboLightGreen);
 `;

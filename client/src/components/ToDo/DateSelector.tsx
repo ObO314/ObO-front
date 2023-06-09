@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { BsCaretRightSquare } from 'react-icons/bs';
-import transformDateFormat from '@/utils/transformDateFormat';
+import { dateToyymmdd } from '@/utils/transformDateFormat';
 
 export default function DateSelector() {
     const left = 'left';
     const right = 'right';
 
-    const date = transformDateFormat(new Date());
+    const date = dateToyymmdd(new Date());
     const [showDate, setShowDate] = useState(date);
     const [formatedDate, setFormatedDate] = useState(new Date());
     const decreasedDate = new Date(formatedDate);
@@ -23,10 +23,10 @@ export default function DateSelector() {
     const handleOnClick = (direction: string) => {
         switch (direction) {
             case 'left':
-                setShowDate(transformDateFormat(decreasedDate));
+                setShowDate(dateToyymmdd(decreasedDate));
                 break;
             case 'right':
-                setShowDate(transformDateFormat(increasedDate));
+                setShowDate(dateToyymmdd(increasedDate));
                 break;
             default:
                 break;

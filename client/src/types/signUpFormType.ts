@@ -1,9 +1,10 @@
 export interface FormInputs {
     name: string;
-    nickName: string;
+    nickname: string;
     email: string;
     password: string;
     confirmPassword: string;
+    authMethod: string;
 }
 
 export interface InputProps {

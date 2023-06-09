@@ -1,23 +1,43 @@
-import React from 'react';
+import { getCookie } from '@/utils/controlCookie';
+import axios from 'axios';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
-export default function IntroductionText() {
-    const textTitle = '자기를 한줄로 표현하는 글입니다.';
-    const textContent =
-        '자기소개입니다.자기소개입니다.자기소개입니다.자기소개입니다.자기소개입니다.자기소개입니다.자기소개입니다.자기소개입니다.자기소개입니다.자기소개입니다.자기소개입니다.자기소개입니다.자기소개입니다.자기소개입니다.자기소개입니다.자기소개입니다.자기소개입니다.자기소개입니다.자기소개입니다.자기소개입니다.자기소개입니다.';
+type Props = {
+    disabled: boolean;
+};
+export const IntroductionText = (props: Props) => {
+    const token = JSON.parse(getCookie('login')).accessToken;
+    const [defaultData, setDefaultData] = useState({ title: '', content: '' });
+    useEffect(() => {
+        const getData = async () => {
+            try {
+                const { data } = await axios.get(`${process.env.REACT_APP_BASE_URL}/readme/read`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+                setDefaultData(data);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        getData();
+    }, []);
+
     const textTag = ['#나를', '#표현하는', '#해시태그'];
     return (
         <StyledTextContainer>
-            <StyledTextTitle>{textTitle}</StyledTextTitle>
-            <StyledTextContent>{textContent}</StyledTextContent>
+            <StyledTextTitle defaultValue={defaultData.title} disabled={props.disabled} />
+            <StyledTextContent defaultValue={defaultData.content} disabled={props.disabled} />
             <StyledTextTagContainer>
                 {textTag.map((elem: string, idx: number) => (
-                    <StyledTextTag key={idx}>{elem}</StyledTextTag>
+                    <StyledTextTag defaultValue={elem} disabled={props.disabled} key={idx} />
                 ))}
             </StyledTextTagContainer>
         </StyledTextContainer>
     );
-}
+};
 
 const StyledTextContainer = styled.div`
     width: 70%;
@@ -28,13 +48,13 @@ const StyledTextContainer = styled.div`
     margin-left: 2%;
 `;
 
-const StyledTextTitle = styled.div`
+const StyledTextTitle = styled.textarea`
     width: 100%;
     height: 20%;
     font-size: 36px;
     font-weight: 600;
 `;
-const StyledTextContent = styled.div`
+const StyledTextContent = styled.textarea`
     width: 100%;
     height: 50%;
     font-size: 16px;
@@ -47,11 +67,12 @@ const StyledTextTagContainer = styled.div`
     width: auto;
     height: auto;
     display: flex;
+    justify-content: space-around;
+`;
+
+const StyledTextTag = styled.textarea`
+    margin-right: 10%;
     font-size: 22px;
     font-weight: 600;
     color: var(--oboLightGreen);
-`;
-
-const StyledTextTag = styled.div`
-    margin-right: 10%;
 `;
