@@ -6,18 +6,17 @@ import { FaUserCircle } from 'react-icons/fa';
 import { AiOutlineUpload } from 'react-icons/ai';
 import LottieAnimation from '@/components/Common/LottieAnimation';
 import { HiOutlinePencil } from 'react-icons/hi';
-import axios from 'axios';
-import { getCookie } from '@/utils/controlCookie';
+import { customAxios } from '@/apis/customAxios';
 
 export const UserProfile = () => {
     const [disabled, setDisabled] = useState(true);
     const defaultUserName = '홍길동';
-    // const getUserName = async () => {
-    //     const userName = await axios.get(`${process.env.REACT_APP_LOCAL_URL}/user/read`);
-    //     console.log(userName);
-    //     // get요청 오류 404번 발생, 헤더에 뭐 넣어야되는지 확인하기.
-    // };
-    // getUserName();
+    const instance = customAxios();
+    const getUserName = async () => {
+        const userName = await instance.get(`${process.env.REACT_APP_LOCAL_URL}/user/read`);
+        console.log(userName);
+    };
+    getUserName();
     const userProfileImage = '유저이미지';
     const handleButtonClick = () => {
         setDisabled(!disabled);

@@ -5,20 +5,21 @@ import { useValidation } from '@/hooks/useValidation';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { SubmitHandler } from 'react-hook-form';
+import { customAxios } from '@/apis/customAxios';
 
 export default function SignUpForm() {
     const { register, watch, errors, reset, handleSubmit, pathname } = useValidation();
     const navigate = useNavigate();
 
     const OnSubmitFunction: SubmitHandler<FormInputs> = async data => {
+        const instance = customAxios();
         try {
             const { confirmPassword, ...userData } = data;
             if (pathname === '/login') {
-                const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/user/login/local`, JSON.stringify(userData), { headers: { 'Content-Type': 'application/json' } });
-                console.log('전송된 데이터 : ', response.data, '상태 코드 : ', response.status);
+                await instance.post(`${process.env.REACT_APP_BASE_URL}/user/login/local`, JSON.stringify(userData));
                 await navigate('/');
             } else if (pathname === '/signup') {
-                await axios.post(`${process.env.REACT_APP_BASE_URL}/user/signup`, JSON.stringify(userData), { headers: { 'Content-Type': 'application/json' } });
+                await instance.post(`${process.env.REACT_APP_BASE_URL}/user/signUp/local`, JSON.stringify(userData));
                 await navigate('/login');
             }
         } catch (error) {

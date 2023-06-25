@@ -5,20 +5,38 @@ import TitleHeader from '@components/Common/TitleHeader';
 import { IntroductionText } from '@/components/ReadMe/IntroductionText';
 import { UserProfile } from '@/components/ReadMe/UserProfile';
 import { HiOutlinePencil } from 'react-icons/hi2';
-import { Button } from '@/components/Common/Button';
+import { BiCheck } from 'react-icons/bi';
 
 export default function ReadMe() {
     const titleText = 'Read ME';
     const [disabled, setDisabled] = useState(true);
     const editContent = () => {
         setDisabled(!disabled);
+        if (!disabled) {
+            // postReadMeData();
+        }
     };
+
     return (
         <>
             <StyledWrapperContainer>
                 <StyledTitleContainer>
                     <TitleHeader titleText={titleText} />
-                    <StyledIconButton onClick={editContent}>{disabled ? <StyledPencilIcon /> : <Button />}</StyledIconButton>
+
+                    <StyledIconContainer onClick={editContent}>
+                        {disabled ? (
+                            <StyledIconButton>
+                                <StyledPencilIcon />
+                            </StyledIconButton>
+                        ) : (
+                            <StyledButton onClick={editContent}>
+                                <StyledCircle>
+                                    <StyledCheckIcon />
+                                </StyledCircle>
+                                <p>Save</p>
+                            </StyledButton>
+                        )}
+                    </StyledIconContainer>
                 </StyledTitleContainer>
 
                 <StyledContentContainer>
@@ -50,6 +68,12 @@ const StyledContentContainer = styled.div`
     align-items: center;
 `;
 
+export const StyledIconContainer = styled.div`
+    width: 100px;
+    display: flex;
+    align-items: center;
+`;
+
 export const StyledIconButton = styled.button`
     width: 100px;
     height: auto;
@@ -58,4 +82,36 @@ export const StyledIconButton = styled.button`
 export const StyledPencilIcon = styled(HiOutlinePencil)`
     font-size: 32px;
     color: var(--oboLightGreen);
+`;
+
+export const StyledButton = styled.button`
+    width: 85px;
+    height: 35px;
+    font-weight: 500;
+    border-radius: 5px;
+    color: var(--white);
+    background-color: var(--button-green);
+    display: flex;
+    padding: 0 10px;
+    justify-content: space-around;
+    align-items: center;
+    &:hover {
+        box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.2);
+    }
+    transition: all 0.3s ease-in-out;
+`;
+
+export const StyledCircle = styled.div`
+    width: 16px;
+    height: 16px;
+    border: none;
+    border-radius: 50%;
+    background-color: var(--button-light-green);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`;
+
+export const StyledCheckIcon = styled(BiCheck)`
+    color: var(--white);
 `;

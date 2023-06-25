@@ -1,11 +1,13 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
+import { customAxios } from '@/apis/customAxios';
 
 /* 백엔드에 승인코드 전달 */
 const postGithubCode = async (code: string) => {
     try {
-        const response = await axios.post('http://localhost:8000/api/github-authenticate', code, { headers: { 'Content-Type': 'application/json' } });
+        const instance = customAxios();
+        const response = await instance.post('/api/github-authenticate', code);
         console.log(response.data);
     } catch (error) {
         console.error(error);

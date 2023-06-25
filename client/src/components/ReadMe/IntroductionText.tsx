@@ -1,3 +1,4 @@
+import { customAxios } from '@/apis/customAxios';
 import { getCookie } from '@/utils/controlCookie';
 import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
@@ -7,16 +8,14 @@ type Props = {
     disabled: boolean;
 };
 export const IntroductionText = (props: Props) => {
-    const token = JSON.parse(getCookie('login')).accessToken;
+    const titleRef = useRef(null);
+    const contentRef = useRef(null);
     const [defaultData, setDefaultData] = useState({ title: '', content: '' });
+    const instance = customAxios();
     useEffect(() => {
         const getData = async () => {
             try {
-                const { data } = await axios.get(`${process.env.REACT_APP_BASE_URL}/readme/read`, {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                });
+                const { data } = await instance.get(`/readme/read`);
                 setDefaultData(data);
             } catch (error) {
                 console.log(error);
@@ -25,14 +24,23 @@ export const IntroductionText = (props: Props) => {
         getData();
     }, []);
 
+    const postReadMeData = async () => {
+        if (titleRef.current && contentRef.current) {
+            const userData = titleRef.current;
+            console.log(userData);
+            // const token: string = JSON.parse(getCookie('login')).accessToken;
+            // const { data } = await instance.post(`/readme/update`, JSON.stringify(userData));
+        }
+    };
+
     const textTag = ['#나를', '#표현하는', '#해시태그'];
     return (
         <StyledTextContainer>
-            <StyledTextTitle defaultValue={defaultData.title} disabled={props.disabled} />
-            <StyledTextContent defaultValue={defaultData.content} disabled={props.disabled} />
+            <StyledTextTitle ref={titleRef} defaultValue={defaultData.title} disabled={props.disabled} />
+            <StyledTextContent ref={contentRef} defaultValue={defaultData.content} disabled={props.disabled} />
             <StyledTextTagContainer>
                 {textTag.map((elem: string, idx: number) => (
-                    <StyledTextTag defaultValue={elem} disabled={props.disabled} key={idx} />
+                    <StyledTextTag defaultValue={elem} disabled key={idx} />
                 ))}
             </StyledTextTagContainer>
         </StyledTextContainer>

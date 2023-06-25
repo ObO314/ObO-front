@@ -6,6 +6,7 @@ import { FormInputs } from '@/types/signUpFormType';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { setCookie } from '@/utils/controlCookie';
+import { customAxios } from '@/apis/customAxios';
 
 export default function LoginForm() {
     const { register, errors, reset, handleSubmit, pathname } = useValidation();
@@ -13,14 +14,15 @@ export default function LoginForm() {
 
     const OnSubmitFunction: SubmitHandler<FormInputs> = async data => {
         try {
+            const instance = customAxios();
             const { confirmPassword, ...userData } = data;
             if (pathname === '/login') {
-                const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/user/login/local`, JSON.stringify(userData), { headers: { 'Content-Type': 'application/json' } });
+                const response = await instance.post(`/user/login/local`, JSON.stringify(userData));
                 setCookie({ cookieName: 'login', cookieValue: response.data, exp: 5 });
 
                 navigate('/');
             } else if (pathname === '/signup') {
-                await axios.post(`${process.env.REACT_APP_BASE_URL}/user/signup`, JSON.stringify(userData), { headers: { 'Content-Type': 'application/json' } });
+                await instance.post(`/user/signup`, JSON.stringify(userData));
                 navigate('/login');
             }
         } catch (error) {
