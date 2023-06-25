@@ -1,8 +1,8 @@
 import React from 'react';
-import axios from 'axios';
 import styled from 'styled-components';
 import { useGoogleLogin } from '@react-oauth/google';
 import GoogleLogo from '@assets/images/google-logo.png';
+import { customAxios } from '@/apis/customAxios';
 
 interface GoogleLoginResponse {
     code: string;
@@ -12,7 +12,9 @@ interface GoogleLoginResponse {
 /* 백엔드에 승인코드 전달 */
 const postGoogleCode = async (code: string) => {
     try {
-        const response = await axios.post('http://localhost:8000/api/google-authenticate', code, { headers: { 'Content-Type': 'application/json' } });
+        const instance = customAxios();
+        console.log(code);
+        const response = await instance.post('http://ec2-13-209-7-29.ap-northeast-2.compute.amazonaws.com:3000/user/login/google', { code });
         console.log(response.data);
     } catch (error) {
         console.error(error);
@@ -34,7 +36,9 @@ export const StyledSignUpLogoButton = styled.button<{ image: string }>`
     height: 4rem;
     border: 1px solid var(--gray-color);
     border-radius: 7px;
+    background-repeat: no-repeat;
     background-image: url(${props => props.image});
     background-size: contain;
+
     cursor: pointer;
 `;

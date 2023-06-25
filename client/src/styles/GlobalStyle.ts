@@ -98,6 +98,8 @@ export const GlobalStyle = createGlobalStyle`
         font-family: "Heebo";
         background-color: #ffffff;
         color: black;
+        font-size: 18px;
+        --white : #ffffff;
         --oboGreen : #009874;
         --oboLightGreen : #00B59A;
         --oboDeepGreen : #005541;
@@ -115,18 +117,34 @@ export const GlobalStyle = createGlobalStyle`
         --edit-gray: #F1F5F8;
         --edit-hover-gray: #DAE1E7;
         --edit-font-gray: #3D4852;
+        --hover-green: #E9F0EE;
+        --button-gray: #EEEEEE;
+        --warning-yellow: #FFB412;
+        --triangle-gray: #D9D9D9;
+        --todo-skyblue: #E3EFF2;
+        --todo-deep-skyblue: #C3DBDA;
+        --todo-yellow-green: #F3F1DE;
+        --todo-deep-yellow-green: #DBD5BD;
+        --todo-salmon: #FFD0CC;
+        --todo-deep-salmon: #E8AEBA;
+        --button-light-green: #85E0A3;
+        --button-green: #54A08E;
         /* --vh: 100%; */
     }
     *{
          box-sizing: border-box;
     }
-    .App {
-        max-width: 1200px;
+    .App {        
+        /* max-width: 1200px;
         margin: 0 auto;
-        padding: 0 20px;
-        font-size: 18px;
-        /* overflow: hidden; */
+        padding: 0 20px; */
         height: calc(var(--vh, 1vh) * 100);
+        overflow-y: scroll;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+    .App::-webkit-scrollbar {
+        display: none;
     }
     a {
         text-decoration: none;
@@ -149,4 +167,13 @@ export const GlobalStyle = createGlobalStyle`
     ol, ul, li {
         list-style: none;
     }
+    textarea {
+    resize: none; /* 크기 조정 제거 */
+    border: none; /* 테두리 제거 */
+    padding: 0; /* 안쪽 여백 제거 */
+    background-color: transparent; /* 배경 제거 */
+    font-family: inherit; /* 폰트 설정 */
+    font-size: inherit; /* 폰트 크기 설정 */
+    outline: none;    
+  }
 `;

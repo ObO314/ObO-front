@@ -1,5 +1,4 @@
 import React from 'react';
-import TestHeader from '@components/TestHeader';
 import SignUpForm from '@/components/SignUp/SignUpForm';
 import styled from 'styled-components';
 import animationData from '@assets/lotties/rocket.json';
@@ -9,7 +8,6 @@ import SignUpWithLogin from '@/components/SignUp/SignUpWithLogin';
 export default function SignUp() {
     return (
         <>
-            <TestHeader />
             <StyledContainer>
                 <StyledBox>
                     <StyledRocketContainer>
@@ -45,6 +43,6 @@ export const StyledSignUpBox = styled.div`
     height: 60vh;
     border: 1px solid var(--gray-color);
     border-radius: 10px;
-    background-color: #ffffff;
+    background-color: var(--white);
     padding: 1rem;
 `;
