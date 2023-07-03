@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { StyledContainer } from '@/pages/SignUp';
 import TitleHeader from '@components/Common/TitleHeader';
@@ -6,6 +6,7 @@ import { IntroductionText } from '@/components/ReadMe/IntroductionText';
 import { UserProfile } from '@/components/ReadMe/UserProfile';
 import { HiOutlinePencil } from 'react-icons/hi2';
 import { BiCheck } from 'react-icons/bi';
+import { customAxios } from '@/apis/customAxios';
 
 export default function ReadMe() {
     const titleText = 'Read ME';
@@ -13,10 +14,39 @@ export default function ReadMe() {
     const editContent = () => {
         setDisabled(!disabled);
         if (!disabled) {
-            // postReadMeData();
+            postReadMeData();
         }
     };
+    const titleRef = useRef<HTMLTextAreaElement>(null);
+    const contentRef = useRef<HTMLTextAreaElement>(null);
+    const [defaultData, setDefaultData] = useState({ title: '', content: '' });
+    const textTag = ['#나를', '#표현하는', '#해시태그'];
+    const instance = customAxios();
+    useEffect(() => {
+        const getData = async () => {
+            try {
+                const { data } = await instance.get(`/readme/read`);
+                setDefaultData(data);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        getData();
+    }, []);
 
+    const postReadMeData = async () => {
+        if (titleRef.current && contentRef.current) {
+            const title = titleRef.current.value;
+            const content = contentRef.current.value;
+            const userData = {
+                title,
+                content,
+            };
+
+            const { data } = await instance.post(`/readme/update`, JSON.stringify(userData));
+            console.log(data);
+        }
+    };
     return (
         <>
             <StyledWrapperContainer>
@@ -29,7 +59,7 @@ export default function ReadMe() {
                                 <StyledPencilIcon />
                             </StyledIconButton>
                         ) : (
-                            <StyledButton onClick={editContent}>
+                            <StyledButton>
                                 <StyledCircle>
                                     <StyledCheckIcon />
                                 </StyledCircle>
@@ -41,7 +71,15 @@ export default function ReadMe() {
 
                 <StyledContentContainer>
                     <UserProfile />
-                    <IntroductionText disabled={disabled} />
+                    <StyledTextContainer>
+                        <StyledTextTitle ref={titleRef} defaultValue={defaultData.title} disabled={disabled} />
+                        <StyledTextContent ref={contentRef} defaultValue={defaultData.content} disabled={disabled} />
+                        <StyledTextTagContainer>
+                            {textTag.map((elem: string, idx: number) => (
+                                <StyledTextTag defaultValue={elem} disabled key={idx} />
+                            ))}
+                        </StyledTextTagContainer>
+                    </StyledTextContainer>
                 </StyledContentContainer>
             </StyledWrapperContainer>
         </>
@@ -114,4 +152,42 @@ export const StyledCircle = styled.div`
 
 export const StyledCheckIcon = styled(BiCheck)`
     color: var(--white);
+`;
+
+const StyledTextContainer = styled.div`
+    width: 70%;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    font-family: 'NotoSansKR';
+    margin-left: 2%;
+`;
+
+const StyledTextTitle = styled.textarea`
+    width: 100%;
+    height: 20%;
+    font-size: 36px;
+    font-weight: 600;
+`;
+const StyledTextContent = styled.textarea`
+    width: 100%;
+    height: 50%;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: normal;
+    margin-bottom: 2%;
+`;
+
+const StyledTextTagContainer = styled.div`
+    width: auto;
+    height: auto;
+    display: flex;
+    justify-content: space-around;
+`;
+
+const StyledTextTag = styled.textarea`
+    margin-right: 10%;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--oboLightGreen);
 `;

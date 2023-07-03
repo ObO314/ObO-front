@@ -6,7 +6,8 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 import { useInitialScrollStore, useScrollStore } from '@/store/store';
 
 function App() {
-    const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID || 'defaultClientId';
+    const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
+    if (!clientId) throw Error;
     const [scrollPosition, setScrollPosition] = useState<number>(0);
     const [prevScrollPosition, setPrevScrollPosition] = useState<number>(0);
     const [currentIndex, setCurrentIndex] = useState(0);

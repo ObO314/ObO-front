@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { disabeldProps } from '@/types/variableType';
 import animationData from '@assets/lotties/profile-image.json';
@@ -10,13 +10,16 @@ import { customAxios } from '@/apis/customAxios';
 
 export const UserProfile = () => {
     const [disabled, setDisabled] = useState(true);
+    const [userName, setUserName] = useState('홍길동');
     const defaultUserName = '홍길동';
     const instance = customAxios();
     const getUserName = async () => {
-        const userName = await instance.get(`${process.env.REACT_APP_LOCAL_URL}/user/read`);
-        console.log(userName);
+        const { data } = await instance.get(`${process.env.REACT_APP_BASE_URL}/user/read`);
+        setUserName(data.nickname);
     };
-    getUserName();
+    useEffect(() => {
+        getUserName();
+    }, []);
     const userProfileImage = '유저이미지';
     const handleButtonClick = () => {
         setDisabled(!disabled);
@@ -40,7 +43,7 @@ export const UserProfile = () => {
                 <StyledFileUpload type="file" disabled={disabled} accept=".jpg, .png" onChange={handleFileUpload} />
                 <AiOutlineUpload />
             </StyledInputLabel>
-            <StyledProfileNameInput type="text" value={defaultUserName} disabled={disabled} />
+            <StyledProfileNameInput type="text" value={userName ?? defaultUserName} disabled={disabled} />
             <StyledProfileEditButton onClick={handleButtonClick}>
                 <StyledPencilIconGray />
                 {disabled ? 'Edit Profile' : 'Save Profile'}

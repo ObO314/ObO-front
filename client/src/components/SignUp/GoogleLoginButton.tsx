@@ -13,9 +13,7 @@ interface GoogleLoginResponse {
 const postGoogleCode = async (code: string) => {
     try {
         const instance = customAxios();
-        console.log(code);
-        const response = await instance.post('http://ec2-13-209-7-29.ap-northeast-2.compute.amazonaws.com:3000/user/login/google', { code });
-        console.log(response.data);
+        await instance.get(`http://ec2-13-209-7-29.ap-northeast-2.compute.amazonaws.com:3000/user/login/google?code=${code}`).then(({ data }) => console.log(data));
     } catch (error) {
         console.error(error);
     }
